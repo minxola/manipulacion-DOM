@@ -111,7 +111,180 @@ const myNodeListArray = [...myNodeList];
 //Ahora que es un array ya podemos usar todos los métodos para trabajar ocn el.
 ```
 
+
+
 ### 6. Crear y Agregar
+
+#### Crear elementos
+
+Cuando creamos elementos, estos no se agregan al DOM, sino que quedan en memoria listos para ser agregados al DOM.
+
+Para crear elementos podemos usar dos métodos: `createElement()` y `createTextNode()`.
+
+```js
+//Crando elementos
+document.createElement('tag name'); //crea nodos HTML
+
+//creando texto
+document.createTextNode('Any text'); //crea nodos de texto
+```
+
+#### Agregar nodos
+
+Existen diversas maneras de agregar nodos al DOM, entre los principales métodos tenemos
+
+##### `parentElement.appendChild()`
+
+Siempre agrega un nodo al final dentro del elemento padre.
+
+```html
+<div class='node'>
+    <h1> Welcome!</h1>
+</div>
+```
+
+Vamos a agregar un h2 y su contenido al HTML mostrado:
+
+```js
+//selección de div.node
+const padre = document.querySelector('div.node');
+
+//creación del elemento h2
+const h2 = document.createElement('h2');
+
+//creación del texto para h2
+const texto = document.createTextNode('To my site');
+
+//AGREGANDO NODOS
+padre.appendChild(h2);
+h2.appendChild(texto);
+```
+
+El resultado sería el siguiente, el nodo es agregado al final del contenido del elemento padre:
+
+```html
+<div class='node'>
+    <h1> Welcome!</h1>
+    <h2> To my site </h2>
+</div>
+```
+
+##### `parentElement.append()`
+
+- Es la evolución de *appendChild*
+- Puedes agregar mas de un nodo
+- Se le puede agregar texto
+- No funciona adecuadamente en IE 11
+
+```html
+<div class='node'>
+    <p>Texto</p>
+</div>
+```
+
+Vamos a agregar elementos
+
+```js
+//seleccionando el elemento div.node
+const parent = document.querySelector('div.node');
+
+//Agregando elementos a parent
+parent.append(document.createElement('div')), 'Esto es un texto');
+```
+
+El HTML quedaría así:
+
+```html
+<div class='node'>
+    <p>Texto</p>
+    <div></div>
+    'Esto es un texto'
+</div>
+```
+
+##### `parentElement.insertBefore()`
+
+- Inserta un nodo antes del nodo de referencia como hijo de un nodo padre indicado.
+- Tiene dos argumentos, primero se le pasa el nodo a agregar y luego la referencia.
+- La referencia es hijo directo del nodo padre.
+
+```html
+<div class='main'>
+    <span>This is text</span>
+    <small>This is small text</small>
+</div>
+```
+
+Como se usa:
+
+```js
+//seleccion de nodo padre
+const parent = document.querySelector('.main');
+
+//seleccion de referencia
+const ref = document.querySelector('.main small');
+
+//creacion del nodo a agregar
+const nodo = document.createElement('div');
+
+//Agregando nodo antes de la referencia
+parent.insertBefore(nodo, ref);
+```
+
+El HTML quedaría así:
+
+```html
+<div class='main'>
+    <span>This is text</span>
+    <div></div>
+    <small>This is small text</small>
+</div>
+```
+
+##### `parentElement.insertAdjacentElement()`
+
+- Es el método mas complicado, sin embargo da mucho mayo flexibilidad.
+- Nos permite insertar un nodo, basándose en una referencia
+- Como argumentos primero se debe pasar la posición: `beforebegin`, `afterbegin`, `beforeend` o `afterend` y luego pasar el nodo a insertar.
+
+Veamos un ejemplo:
+
+```html
+<div class='main'>
+    <span>This is text</span>
+    <small>
+        This is small text
+    </small>
+</div>
+```
+
+Agregando elementos:
+
+```js
+//creación del nodo a insertar
+const nodo = document.craeteElement('img');
+
+//selección de la referencia
+const ref = document.querySelector('small');
+
+//Agregando elementos
+ref.insertAdjacentElement('beforebegin', nodo);
+```
+
+El HTML quedaría así:
+
+```html
+<div class='main'>
+    <span>This is text</span>
+    <img><!--beforebegin-->
+    <small>
+        <!--afterbegin-->
+        This is small text
+        <!--beforeend-->
+    </small>
+    	<!--afterend-->
+</div>
+```
 
 
 
