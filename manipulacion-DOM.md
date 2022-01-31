@@ -133,7 +133,7 @@ document.createTextNode('Any text'); //crea nodos de texto
 
 Existen diversas maneras de agregar nodos al DOM, entre los principales métodos tenemos
 
-##### `parentElement.appendChild()`
+##### parentElement.appendChild()
 
 Siempre agrega un nodo al final dentro del elemento padre.
 
@@ -169,7 +169,7 @@ El resultado sería el siguiente, el nodo es agregado al final del contenido del
 </div>
 ```
 
-##### `parentElement.append()`
+##### parentElement.append()
 
 - Es la evolución de *appendChild*
 - Puedes agregar mas de un nodo
@@ -202,7 +202,7 @@ El HTML quedaría así:
 </div>
 ```
 
-##### `parentElement.insertBefore()`
+##### parentElement.insertBefore()
 
 - Inserta un nodo antes del nodo de referencia como hijo de un nodo padre indicado.
 - Tiene dos argumentos, primero se le pasa el nodo a agregar y luego la referencia.
@@ -241,7 +241,7 @@ El HTML quedaría así:
 </div>
 ```
 
-##### `parentElement.insertAdjacentElement()`
+##### parentElement.insertAdjacentElement()
 
 - Es el método mas complicado, sin embargo da mucho mayo flexibilidad.
 - Nos permite insertar un nodo, basándose en una referencia
@@ -286,11 +286,63 @@ El HTML quedaría así:
 </div>
 ```
 
-
-
 ### 7. Otras formas de agregar
 
+Existen otras formas de leer y agregar nodos que son muy convenientes y fáciles de usar son:
 
+- **node.outerHTML()**: para leer HTML. Devuelve como cadena de texto el HTML del elemento incluido su contenido.
+- **node.innerHTML()**:
+  - Leer contenido del elemento: `node.innerHTML` nos devuelve el contenido del elemento.
+  - Modificar contenido: `node.innerHTML = 'new content'` modifica el contenido del elemento. El contenido puede ser texto o HTML. Se le debe pasar entre comillas.
+
+La desventaja es que convierte el texto en HTML pudiendo crear problemas de seguridad como inyecciones de XSS.
+
+Debido a que convierte todo el texto en HTML, habiendo la posibilidad de que se pueda inyectar códigos de terceros.
+
+Si es que fuera muy necesario usar estos métodos y el usuario necesitara ingresar los datos, se debe hacer si o si un proceso de **sanitize** (Limpieza)
+
+> Tip en consola de Chrome DevTools.
+>
+> - Seleccionar un elemento de HTML
+> - Escribir en console `$0`
+> - Esto devolverá el elemento seleccionado, similar a `document.querySelector()`
+> - Es solo para uso en consola (experimentación)
+
+Ejemplos de uso:
+
+```html
+<main>
+    <article>
+    	<h2>Titulo del articulo</h2>
+        <p>Contenido del articulo</p>
+    </article>
+</main>
+```
+
+Leyendo y cambiando nodos:
+
+```js
+//seleccionar h2
+const h2 = document.querySelector('h2');
+
+//leer el nodo h2
+h2.outerHTML; //<h2>Titulo del articulo</h2>
+
+//leer el contenido de h2
+h2.innerHTML; //Titulo del articulo
+
+//cambiar el contenido de h2
+h2.innerHTML = 'Titulo del <strong>articulo</strong>';
+//Esto cambiaría el contenido de h2
+```
+
+Se debe tener cuidado al usar formularios cuando se obtiene el contenido escrito por un usuario usando estos métodos.
+
+Por ejemplo si se permite el paso de HTML en un formulario, el usuario podría colocar:
+
+`<span onclick="alert('hey you')">this is a text</span>`
+
+Esto en un comentario dispararía un alert con el mensaje.
 
 ### 8. Atributos y propiedades
 
