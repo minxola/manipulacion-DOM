@@ -346,15 +346,215 @@ Esto en un comentario dispararía un alert con el mensaje.
 
 ### 8. Atributos y propiedades
 
+#### Atributos
 
+En nuestro documento le podemos asignar atributos a cada elemento del DOM, ¿Pero que son los atributos? son valores adicionales que agregamos a las etiquetas para configurar o ajustar su comportamiento de muchas formas, con el fin de cumplir con los criterios que requieren los usuarios.
+
+Con JavaScript podemos acceder a esos atributos definidos en el HTML, veamos un ejemplo de como podemos hacer esto, supongamos que tenemos un input que recibe el nombre completo de una persona
+
+```jsx
+// Nuestro input
+<input class="form-control" 
+       id="persona-nombre" 
+       placeholder="Nombre completo" />
+
+// Obtenemos el input
+const input = document.querySelector("#persona-nombre");
+
+// Obtenemos los atributos
+input.className // salida: "form-control"
+input.id // salida: "persona-nombre"
+input.placeholder // salida: "Nombre completo"
+```
+
+Como vimos podemos acceder a cada atributo como lo hacemos cuando queremos obtener una propiedad en un objeto de javascript, con esto podemos verificar que valor esta tomando cada atributo. Si en el input escribimos texto desde el navegador, podemos acceder a ese valor a traves de `input.value`.
+
+JavaScript cuenta además con otras métodos que permiten manipular los atributos de los nodos, estos son **`element.setAttribute(), element.getAttribute()`** y **`element.removeAttribute()`**. Veamos como funciona cada uno
+
+- **element.setAttribute()**
+
+  Este método establece el valor de un atributo en el elemento indicado, recibe dos argumentos, el primero de ellos un string donde se indica el nombre del atributo, y el segundo el valor que tomará dicho atributo. Es importante mencionar que si el atributo ya existe en el elemento, el valor será actualizado. supongamos que al input del ejemplo anterior queremos agregarle el atributo **name,** lo hacemos de la siguiente manera
+
+  ```jsx
+  input.setAttribute("name", "fullName");
+  
+  // Ahora el input quedará de la siguiente manera
+  
+  <input class="form-control" 
+         id="persona-nombre" 
+         placeholder="Nombre completo" 
+  			 name="fullName" />
+  ```
+
+- **element.getAttribute()**
+
+  Este método retorna el valor del atributo especificado en el elemento. Si el atributo al que se hace referencia no esta definido en el elemento, el valor que retornará dicho método es null. Supongamos que queremos obtener el valor del atributo **name** agregado en el ejemplo anterior.
+
+  ```jsx
+  input.getAttribute("name"); // Salida: "fullName"
+  ```
+
+- **element.removeAttribute()**
+
+  Este método elimina el atributo del elemento que lo invoca, con esto podemos quitar atributos que ya no necesitemos, supongamos que queremos eliminar el atributo **name** del input de los ejemplos anteriores, lo hacemos de la siguiente forma
+
+  ```jsx
+  input.removeAttribute("name");
+  
+  // input final
+  <input class="form-control" 
+         id="persona-nombre" 
+         placeholder="Nombre completo" />
+  ```
+
+#### Diferencia entre atributos y propiedades
+
+- **Atributos**, son usados al principio para inicializar el HTML: type, class, ID, value, placeholder, etc.
+- **Propiedades** son las que cambian, por ejemplo `id="myID"`, **myID** es lo que cambia y se puede modificar con JavaScript, es la propiedad.
 
 ### 9. Eliminar nodos
 
+Hay tres métodos: `parent.removeChild()`, `document.remove()` y `document.replaceChild()`.
+
+#### removeChild()
+
+Se necesita elemento padre e hijo.
+
+```jsx
+<div>
+    <article>...</article>
+</div>
+
+//eliminando nodos
+const parent = document.querySelector('div');
+const child = document.querySelector('article');
+
+//eliminar nodo
+parent.removeChild(child);
+
+/*resultado
+<div></div>
+*/
+```
+
+#### remove()
+
+Es la evolución de `removeChild()`
+
+```jsx
+<div>
+	<article>...</article>
+    <p>text</p>
+</div>
+
+//eliminando nodo p
+const toDelete = document.querySelector('p');
+
+toDelete.remove();
+
+/*resultado
+<div>
+	<article>...</article>
+</div>
+*/
+```
+
+#### replaceChild
+
+Reemplaza a un nodo por otro. Se necesita el elemento padre, hijo y el nuevo nodo.
+
+```jsx
+<div>
+	<article class='main'>...</article>
+</div>
+
+const padre = document.querySelector('div');
+const hijoToReplace = document.querySelector('.main');
+const newNode = document.createElement('img');
+
+//reemplazando
+padre.replaceChild(newNode, hijoToReplace);
+
+/*resultado
+<div>
+	<img />
+</div>
+*/
+```
+
+#### replaceWith()
+
+```js
+const div = document.createElement("div");
+const p = document.createElement("p");
+div.appendChild(p);
+const span = document.createElement("span");
+
+p.replaceWith(span);
+
+console.log(div.outerHTML);
+// "<div><span></span></div>"
+```
+
 ### 10. Operaciones en lote
+
+Hacer operaciones en el DOM tiene un costo de performance. Para ello la regla de oro es, que cuando trabajemos con el DOM intentemos reducir el número de operaciones. Específicamente; escribir, modificar y eliminar.
+
+```js
+//Agregar nodos en lote: 10 nodos input
+
+//INEFICIENTE, 10 veces se manipula el DOM
+for (let i = 0; i < 10; i++) {
+    const node = document.createElement('input');
+    node.setAttribute('type', 'text');
+    node.setAttribute('placeholder', 'Ineficientent');
+    console.log(node);
+    document.body.appendChild(node);//DOM Manipulation x 10 veces
+};
+
+//EFICIENTE, solo se modifica el DOM una vez
+const nodos = [];
+for (let i = 0; i < 10; i++){
+    const node = document.createElement('input');
+    node.setAttribute('type', 'submit');
+    node.setAttribute('value', 'Eficient')
+    nodos.push(node);
+}
+
+document.body.append(...nodos);//DOM Manipulation x 1 vez
+```
+
+#### ¿Qué es el Spread Operator?
+
+El **spread operator** trabaja con arreglos y objetos, cuando lo pasamos en la llamada a una función, lo que hará es deconstruir ese arreglo y lo pasará como parámetros individuales para la función… aquí un ejemplo para que me entiendas:
+
+```js
+function foo (a, b, c) {
+	// code...
+}
+
+// La forma normal de llamarla sería:
+foo (x, y, z);
+
+// Pero, ¿qué pasa si tengo un arreglo que contiene esos 3 parámetros?
+const params = [x, y, z]
+
+//El spread operator deconstruye el arreglo colocando cada parametro en su lugar.
+foo(...params);
+
+// Eso sería equivalente a esto:
+foo(params[0], params[1], params[2]);
+```
+
+Esto es muy útil cuando tenemos demasiados valores, recuerda, mientras menos modifiques el DOM, más eficiente será tu programa, y recordemos que tenemos a `append()` que nos permite insertar múltiples elementos en el DOM en una sola llamada, ¡aprovechémoslo!
 
 ## Workshop 1: Fetch
 
 ### 11. Presentación del proyecto
+
+[Repositorio del proyecto](https://github.com/jonalvarezz/platzi-dom)
+
+Entrar a la carpeta **workshop-fetch**.
 
 ### 12. Descargando Información y creando nodos
 
