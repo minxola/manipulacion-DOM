@@ -703,7 +703,95 @@ Subir el proyecto a GitHub y correr en GitHub Pages.
 
 ### 16. Reaccionar a lo que sucede en el DOM
 
+[Event Reference](https://developer.mozilla.org/en-US/docs/Web/Events): referencia de los tipos de eventos
+
+[Propiedades de elementos](https://developer.mozilla.org/en-US/docs/Web/API/Element#focus_events): donde se muestran algunos eventos.
+
+Para hacer mas interactiva una aplicación podemos utilizar eventos. Para trabajar con eventos tenemos `node.addEventListener()` y `node.removeEventListener()`.
+
+#### addEventListener
+
+`addEventListener()` Registra un evento a un objeto en específico. El **objeto específico** puede ser un elemento, el document, una ventana o un XMLHttpRequest.
+
+Para crear mas de un *eventListener* se puede llamar a `addEventListener()` para el mismo elemento pero con diferentes tipos de eventos.
+
+- Permite agregar mas de un *Listener* a un solo *Evento*.
+- Funciona en cualquier elemento del DOM, no solo elementos HTML.
+
+***Sintaxis***:
+
+```js
+addEventListener(type, listener);
+addEventListener(type, listener, options);
+addEventListener(type, listener, useCapture);
+//Type: tipo de evento (click, keypress, input, etc)
+//Listener: function callback que se ejecuta al producirse el evento
+```
+
+```js
+const title = document.querySelector('#company-website');
+title.addEventListener('click', action);
+
+function action (event){
+    console.log('action');//event actions
+}
+
+title.addEventListener('focus', (i) => {
+    console.log('focusing');//event actions
+    console.log(i);//event properties
+})
+
+const doThis = (evento) => {
+    console.log(evento.data);//data of event
+}
+
+title.addEventListener('input', doThis);
+```
+
+> Al colocar el **callback function** al *Event Listener* solo se debe hacer referencia a la función con su nombre sin paréntesis, ya que si se coloca paréntesis esta función se ejecutará inmediatamente y no espera el evento.
+>
+> ```js
+> node.addEventListener('click', myListener);
+> 
+> const myListener = () => {console.log('I am a listener')}
+> ```
+
+#### removeEventListener
+
+Nos permite eliminar un *Evento* particular de un nodo. Para poder usar *removeEventListener* la acción del evento o *callback function* debe tener un nombre, de caso contrario no se podrá eliminar.
+
+```js
+//No se puede eliminar con removeEventListener
+title.addEventListener('focus', (i) => {
+    console.log('focusing');//event actions
+    console.log(i);//event properties
+})
+```
+
+Forma básica de como eliminar eventos:
+
+```js
+const labelAbout = document.querySelector('.label-about');
+
+//actions
+const action1 = () => {
+    console.log('Action 1');
+}
+
+const action2 = () => {
+    console.log('action 2');
+}
+
+labelAbout.addEventListener('click', action1);
+labelAbout.addEventListener('click', action2);
+
+//remove action2
+labelAbout.removeEventListener('click', action2);
+```
+
 ### 17. Event propagation
+
+
 
 ### 18. Event Delegation
 
