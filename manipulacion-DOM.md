@@ -556,13 +556,148 @@ Esto es muy útil cuando tenemos demasiados valores, recuerda, mientras menos mo
 
 Entrar a la carpeta **workshop-fetch**.
 
+[Api de avocado](https://platzi-avo.vercel.app/api/avo), nos muestra un archivo json con los datos.
+
+[TailWindCSS](https://tailwindcss.com/), para estilos
+
 ### 12. Descargando Información y creando nodos
+
+Usando fetch para obtener la información:
+
+```js
+const URL_API = 'https://platzi-avo.vercel.app/api/avo';
+
+//WEB API
+
+//Conectarse al servidor
+window
+    .fetch(URL_API)
+    //procesar la respuesta y convertir a JSON
+    .then((response) => response.json())
+    //JSON --> Data --> Renderizar info en browser
+    .then((dataJSON) => {
+        const nodos = [];
+        dataJSON.data.forEach((item) => {
+            //crear titulo
+            const title = document.createElement('h2');
+            //crear imagen
+            const image = document.createElement('img');
+            //crear precio
+            const price = document.createElement('span');
+
+            const container = document.createElement('div');
+            container.append(title, image, price);
+
+            nodos.push(container);
+        })
+
+        document.body.append(...nodos);
+    })
+```
+
+Lo mismo se puede lograr con el uso de async/await:
+
+```js
+const fetchData = async (url) => {
+    //conectarse a la api
+    const rawData = await fetch(url);
+    //Convertir la respuesta a formato JSON
+    const JSONData = await rawData.json();
+    //nodos vacio
+    const nodos = [];
+    //Creacion de nodos
+    JSONData.data.forEach((item) =>{
+        //title
+        const title = document.createElement('h2');
+        //img
+        const image = document.createElement('img');
+        //price
+        const price = document.createElement('span');
+        //creación de nodo contenedor
+        const container = document.createElement('div');
+        container.append(title, image, price);
+        //almacenar los nodos en el array nodos=[]
+        nodos.push(container);
+    })
+    document.body.append(...nodos);
+}
+
+fetchData(URL_API);
+```
 
 ### 13. Enriqueciendo la información
 
+```js
+const url_base = 'https://platzi-avo.vercel.app';
+const URL_API = 'https://platzi-avo.vercel.app/api/avo';
+
+//contenedor de la app
+const app = document.querySelector('#app');
+
+const fetchData = async (url) => {
+    //conectarse a la api
+    const rawData = await fetch(url);
+    //Convertir la respuesta a formato JSON
+    const JSONData = await rawData.json();
+    //nodos vacio
+    const nodos = [];
+    //Creacion de nodos
+    JSONData.data.forEach((item) =>{
+        //title
+        const title = document.createElement('h2');
+        title.textContent = item.name;
+        //img
+        const image = document.createElement('img');
+        image.src = `${url_base}${item.image}`;
+        //price
+        const price = document.createElement('span');
+        price.textContent = `Precio: ${item.price} USD`;
+        //creación de nodo contenedor
+        const container = document.createElement('div');
+        container.append(title, image, price);
+        //almacenar los nodos en el array nodos=[]
+        nodos.push(container);
+    })
+    app.append(...nodos);
+}
+
+fetchData(URL_API);
+```
+
 ### 14. Usando la API de internacionalización del browser
 
+Esta API se usa para dar formato a **fechas** y dar formato a **monedas**.
+
+```js
+//.....
+//API Intl, de internacionalización para monedas y fechas
+const formatPrice = (price) => {
+    const newPrice = new window.Intl.NumberFormat('en-EN', {
+        style: 'currency',
+        currency: 'USD',
+    }).format(price);
+
+    return newPrice;
+}
+
+//Función de renderizar
+const fetchData = async (url) => {
+    	//...
+        //price
+        const price = document.createElement('span');
+        price.textContent = formatPrice(item.price);//Intl
+        price.className = 'price';
+        //....
+    })
+    app.append(...nodos);
+}
+
+//...
+```
+
 ### 15. Comparte el resultado
+
+Subir el proyecto a GitHub y correr en GitHub Pages.
 
 ## Eventos
 
