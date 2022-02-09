@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Propagación de eventos</title>
+    <style>
+        main{
+            width: 80%;
+            padding: 20px;
+            background-color: khaki;
+        }
+        article{
+            width: 80%;
+            padding: 20px;
+            background-color:aquamarine;
+        }
+        p{
+            padding: 5px;
+            background-color: bisque;
+            color: chocolate;
+        }
+    </style>
+</head>
+<body>
+    <main id="abuelo"> main#abuelo
+        <article id="padre"> article#padre
+            <p id="hijo"> p#hijo <br>
+                La propagación de eventos<br>
+            Los eventos se propagan desde el elemento hijo hacia los elementos padres del DOM
+            </p>
+        </article>
+    </main>
+    <pre>
+        <b>Tenemos 3 elementos con id #hijo, #padre, #abuelo </b><br>
+        Todos tienen addEventLister de click, por lo que al hacer
+        click en el hijo se propaga hacia padre y abuelo. De la misma
+        forma si se hace click en padre se propaga al abuelo.
+        Esto no sucede en viceversa.
+        Al usar nodo.stopPropagation(), se detiene la propagación y 
+        solo se ejecutan las acciones cuando se dá click en el 
+        elemento específico.
+        <div id="resultado"></div>
+    </pre>
+    <script src="./propagation.js"></script>
+</body>
+</html>

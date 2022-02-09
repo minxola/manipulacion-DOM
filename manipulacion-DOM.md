@@ -791,9 +791,64 @@ labelAbout.removeEventListener('click', action2);
 
 ### 17. Event propagation
 
+**Bubbling** es la forma en que se propaga desde lo más bajo hasta lo más alto en los elementos de DOM.
 
+- El DOM es un árbol que renderiza nodos de forma jerárquica
+  - Cuando un evento sucede se propaga a lo largo de ese nodo
+- Los eventos suceden desde el elemento más interno hacia afuera
+  - Propagándose entre cada padre que tiene el elemento escuchado
+- Si deseamos borrar este comportamiento podemos usar el parámetro de evento
+
+```jsx
+node.addEventListener("click", (event) => {
+	event.stopPropagation()
+	// Acciones del evento
+});
+```
+
+- Se debe tener cuidado con este tipo de operaciones por que puede existir códigos de otras personas o de librerías que necesiten este tipo de eventos
+- Por lo general se debería dejar que los eventos fluyan por su ruta
+
+**RESUMEN:** Cuando se tiene eventos estos pueden flotar desde el más específico hasta el más grande, si se desea quitar este comportamiento se puede usar el método del parámetro del evento `stopPropagation` por lo general no es necesario usar este método
 
 ### 18. Event Delegation
+
+- La idea principal es delegar un evento global a un solo nodo y desde esa parte poder delegar todos los eventos que sucedan
+- Se debe usar cuando el número de escuchadores es alto
+- Se trata de identificar de donde proviene el evento, según a ello se lo captura con un condicional y se procede a realizar las operaciones
+
+**RESUMEN: ** **Event delegation** consiste en delegar a un solo padre (el padre) el manejo/escucha de los eventos que nos interesan, de esta manera tendremos un único eventListener en lugar de tener uno por cada elemento lo cual puede impactar en el rendimiento de nuestro sitio web cuando son muchos eventListeners.
+Si deseamos manejar la interacción solo sobre un elemento específico dentro del nodo padre, solo se debe especificar dentro de la función, para esto se puede usar la información provista por el evento (event).
+
+```html
+HTMLcopy
+<main class="app">
+    <div class="producto">
+        <h4>
+            Title
+        </h4>
+        <img src="image.png">
+    </div>
+</main>
+```
+
+Haciendo la delegación de eventos al nodo con **ID=app**.
+
+```js
+JScopy
+const app = document.querySelector('#app');
+
+const delegation = (event) => {
+    if(event.target.nodeName === 'H4'){
+        alert('Elige tu producto');
+    }
+}
+
+app.addEventListener('click', delegation)
+
+```
+
+Hay que tener en cuenta que el evento siempre se escucha sin embargo las acciones del evento que se deben realizar solo será posible si se cumple la condicional.
 
 ## Workshop 2: Lazy loading
 
