@@ -854,9 +854,19 @@ Hay que tener en cuenta que el evento siempre se escucha sin embargo las accione
 
 ### 19. Presentación del proyecto
 
+Vamos a crear una página que muestra imágenes pero solo al momento de que son visibles. Para lograr esto usaremos lo que se le llama *Lazy Loading* o *carga perezosa*, es una técnica avanzada de manipulación del *Document Object Model*, que se realiza usando JavaScript.
+
+[Link del proyecto Lazy Loading](https://github.com/jonalvarezz/platzi-dom/tree/main/workshop-lazy-loading)
+
+API a utilizar: [Random Fox](https://randomfox.ca/)
+
 ### 20. Nuestro propio plugin Lazy Loading
 
+
+
 ### 21. Creando las imágenes con JavaScript
+
+
 
 ### 22. Intersection Observer
 

@@ -2,3 +2,7 @@ node_modules
 avocado/.snowpack
 avocado/build
 avocado/node_modules
+lazyLoad/.snowpack
+lazyLoad/build
+lazyLoad/node_modules
+temp/

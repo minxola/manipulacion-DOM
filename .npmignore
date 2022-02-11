@@ -2,3 +2,7 @@ avocado/.build
 avocado/build
 avocado/web_modules
 avocado/node_modules
+lazyLoad/.build
+lazyLoad/build
+lazyLoad/web_modules
+lazyLoad/node_modules
