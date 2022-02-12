@@ -15,11 +15,10 @@ const imageNode = async () => {
     const imagen = document.createElement('img');
     imagen.className = 'mx-auto';
     imagen.width = '320';
-    imagen.src = data.image;
-    imagen.style.border = '1px solid red';
-    imagen.style.borderRadius = '10px';
+    imagen.dataset.src = data.image;
 
     container.append(imagen);
+
     return container;
 }
 

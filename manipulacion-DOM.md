@@ -862,15 +862,105 @@ API a utilizar: [Random Fox](https://randomfox.ca/)
 
 ### 20. Nuestro propio plugin Lazy Loading
 
-
-
 ### 21. Creando las imágenes con JavaScript
-
-
 
 ### 22. Intersection Observer
 
+La API Observador de Intersección provee una vía asíncrona para observar cambios en la intersección de un elemento con un elemento ancestro o con el [viewport](https://developer.mozilla.org/es/docs/Glossary/Viewport) del documento de nivel superior.
+
+La API Intersection Observer le permite configurar una función callback que es llamada cuando alguna de las siguientes circunstancias ocurren:
+
+- Un elemento **target** intersecta ya sea al **viewport** del dispositivo o un **elemento especificado**. Ese elemento especificado es llamado el **elemento root** o **root** a los propósitos de la API Intersection Observer.
+- La primera vez que se pide inicialmente al observador que observe un elemento target.
+
+### [Creando un intersection observer](https://developer.mozilla.org/es/docs/Web/API/Intersection_Observer_API#creando_un_intersection_observer)
+
+Cree el intersection observer llamando a su constructor y pasándole una función callback para que se ejecute cuando se cruce un umbral (threshold) en una u otra dirección:
+
+```
+let options = {
+  root: document.querySelector('#scrollArea'),
+  rootMargin: '0px',
+  threshold: 1.0
+}
+
+let observer = new IntersectionObserver(callback, options);
+```
+
+Copy to Clipboard
+
+Un umbral de 1.0 significa que cuando el 100% del elemento target está visible dentro del elemento especificado por la opción `root`, la función callback es invocada.
+
+#### Opciones de Intersection observer
+
+El objeto `options` pasado al constructor [`IntersectionObserver()` (en-US)](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver/IntersectionObserver) le deja controlar las circunstancias bajo las cuales la función callback es invocada. Tiene los siguientes campos:
+
+- `root`
+
+  El elemento que es usado como viewport para comprobar la visibilidad de elemento target. Debe ser ancestro de target. Por defecto es el viewport del navegador si no se especifica o si es `null`.
+
+- `rootMargin` 
+
+  Margen alrededor del elemento root. Puede tener valores similares a los de CSS [`margin`](https://developer.mozilla.org/es/docs/Web/CSS/margin) property, e.g. "`10px 20px 30px 40px"` (top, right, bottom, left). Los valores pueden ser porcentajes. Este conjunto de valores sirve para aumentar o encoger cada lado del cuadro delimitador del elemento root antes de calcular las intersecciones. Por defecto son todos cero.
+
+- `threshold`
+
+  Es un número o un array de números que indican a que porcentaje de visibilidad del elemento target, la función callback del observer debería ser ejecutada. Si usted quiere que se detecte cuando la visibilidad pasa la marca del 50%, debería usar un valor de 0.5. Si quiere ejecutar la función callback cada vez que la visibilidad pase otro 25%, usted debería especificar el array [0, 0.25, 0.5, 0.75, 1]. El valor por defecto es 0 (lo que significa que tan pronto como un píxel sea visible, la función callback será ejecutada). Un valor de 1.0 significa que el umbral no se considera pasado hasta que todos los pixels son visibles.
+
+#### Determinando un elemento para ser observado
+
+Una vez usted ha creado el observer, necesita darle un elemento target para observar:
+
+```
+var target = document.querySelector('#listItem');
+observer.observe(target);
+
+// el callback que indicamos al observador será ejecutado ahora por primera vez
+// espera hasta que le asignemos un target a nuestro observador (aún si el target no está actualmente visible)
+```
+
+Copy to Clipboard
+
+Cuando el elemento target encuentra un threshold especificado por el `IntersectionObserver`, la función callback es invocada. La función callback recibe una lista de objetos [`IntersectionObserverEntry` (en-US)](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserverEntry) y el observer:
+
+```
+var callback = function(entries, observer) {
+  entries.forEach(entry => {
+    // Cada entry describe un cambio en la intersección para
+    // un elemento observado
+    //   entry.boundingClientRect
+    //   entry.intersectionRatio
+    //   entry.intersectionRect
+    //   entry.isIntersecting
+    //   entry.rootBounds
+    //   entry.target
+    //   entry.time
+  });
+};
+```
+
+Copy to Clipboard
+
+Asegúrese de que su función callback se ejecute sobre el hilo principal. Debería operar tan rápidamente como sea posible; si alguna cosa necesita tiempo extra para ser realizada, use [`Window.requestIdleCallback()`](https://developer.mozilla.org/es/docs/Web/API/Window/requestIdleCallback).
+
+También, note que si especifica la opción `root`, el elemento target debe ser un descendiente del elemento root.
+
 ### 23. Aplicando Lazy Loading
+
+Los atributos `data-anything` sirven para definir **atributos personalizados** dentro de HTML, es decir, podemos crear atributos propios, son muy útiles para pasar datos entre HTML y JavaScript, su sintaxis consta en que **SIEMPRE** deben iniciar con `data-` y después de eso puedes poner cualquier cosa: `data-miAtributo`, y se pueden usar de esta manera:
+
+```html
+<div id="myDiv" data-miAtributo="atributo1" data-otroAtributo="atributo2">
+	<!--Content here...-->
+</div>
+```
+
+La forma de acceder a estos elementos desde JavaScript es mediante la propiedad `dataset`, esta propiedad contiene la lista de todos los atributos personalizados que le pusiste a tu elemento:
+
+```js
+const atri1 = myDiv.dataset.miAtributo; // atributo1
+const atri2 = myDiv.dataset.otroAtributo; //atributo2
+```
 
 ### 24. Comparte el resultado
 

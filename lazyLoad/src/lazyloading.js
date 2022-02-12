@@ -2,18 +2,21 @@ const isIntersecting = (entry) => {
     return entry.isIntersecting //true si esta dentro de la pantalla
 }
 
-const action = (entry) => {
-    console.log(entry);
-    const nodo = entry.target;
-    console.log('Hello');
-    observer.unobserve(nodo);
+const cargarImagen = (entry) => {
+    const container = entry.target;
+    //se puede usar container.querySelector('img');
+    const imagen = container.firstChild;
+    const url = imagen.dataset.src;
+    //load image
+    imagen.src = url;
+    //unobserve
+    observer.unobserve(container);
 }
 
 const observer = new IntersectionObserver((entries) => {
-    console.log(entries[0]);
     entries
         .filter(isIntersecting)
-        .forEach(action)
+        .forEach(cargarImagen)
 });
 
 export const registerImage = (image) => {

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <title>Intersection Observer</title>
+</head>
+<body>
+    <main id="app">
+        <div class="vacio">
+            <span class="description">
+            <b>Mover la barra ==></b><br>
+            El Intersection Observer detectará cuando
+            uno de los elementos target cruzan el root o viewport,
+            en este caso el root es la sección color celeste y los
+            elementos target o que están siendo observados son los
+            elementos color naranja.
+            <b>configuración</b><br>
+            let options = {<br>
+                root: document.querySelector('#app'),<br>
+                rootMargin: '0px',<br>
+                threshold: 1.0 <br>
+            }
+            </span>
+        </div>
+        <div class="target">Target</div>
+        <div class="target">Target</div>
+        <div class="target">Target</div>
+        <div class="target">Target</div>
+        <div class="target">Target</div>
+        <div class="target">Target</div>
+        <div class="target">Target</div>
+        <div class="target">Target</div>
+        <div class="target">Target</div>
+        <div class="target">Target</div>
+        <div class="target">Target</div>
+        <div class="target">Target</div>
+    </main>
+    <p class="contador"> Nº de Targets:
+        <span class="count">0</span>
+    </p>
+    <script src="./index.js"></script>
+</body>
+</html>
