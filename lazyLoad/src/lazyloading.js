@@ -10,6 +10,8 @@ const cargarImagen = (entry) => {
     //load image
     imagen.src = url;
     //unobserve
+    showedImages++;
+    showEvents();
     observer.unobserve(container);
 }
 

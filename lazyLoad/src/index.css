@@ -2,6 +2,7 @@
 @import 'tailwindcss/dist/components.css';
 @import 'tailwindcss/dist/utilities.css';
 
+
 body{
     background-color: #0F172A;
 }

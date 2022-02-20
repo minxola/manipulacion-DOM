@@ -11,19 +11,33 @@
   <body>
     <div class="py-10 max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center">
-        <p class="text-base leading-6 text-indigo-600 font-semibold tracking-wide uppercase">
-          Lazy Loading
+        <p class="p-3 text-base leading-6 text-indigo-600 font-semibold tracking-wide">
+          Click and
         </p>
-        <h3 class="p-4 mt-2 text-3xl leading-8 font-extrabold tracking-tight sm:text-4xl sm:leading-10">
-          Manipulación del DOM
+        <div class="flex flex-wrap justify-center p-3">
+          <img class="mx-w-sm" src="./fox.png" alt="fox" srcset="">
+        </div>
+        <h3 class="p-3 mt-2 text-3xl leading-8 text-indigo-600 font-extrabold tracking-tight sm:text-4xl sm:leading-10">
+          Find a beautiful Fox
         </h3>
-        <button class="bg-indigo-500  p-3 border">Agregar imagen</button>
+        <button class="add-image bg-indigo-500  p-2 border">Find a Fox</button>
+        <button class="clear bg-indigo-500 p-2 border">Clear all foxs</button>
         <div id="app"></div>
 
       </div>
     </div>
 
     <!-- Add more scripts here -->
+    <script>
+/*       var addedImages = 0;
+      var showedImages = 0;
+      const showEvents = () =>{
+        console.group('Eventos');
+        console.log(`Added Images: ${addedImages}`);
+        console.log(`Showed Images: ${showedImages}`);
+        console.groupEnd();
+    } */
+    </script>
     <script type="module" src="%PUBLIC_URL%/_dist_/index.js"></script>
   </body>
 </html>
