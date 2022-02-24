@@ -1,8 +1,8 @@
-avocado/.build
-avocado/build
-avocado/web_modules
-avocado/node_modules
-lazyLoad/.build
-lazyLoad/build
-lazyLoad/web_modules
-lazyLoad/node_modules
+proyectos/avocado/.build
+proyectos/avocado/build
+proyectos/avocado/web_modules
+proyectos/avocado/node_modules
+proyectos/lazyLoad/.build
+proyectos/lazyLoad/build
+proyectos/lazyLoad/web_modules
+proyectos/lazyLoad/node_modules

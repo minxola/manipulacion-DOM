@@ -13,7 +13,7 @@ Por: **Jonathan Alvarez** [@jonalvarezz](twitter.com/jonalvarezz)
 
 ### 2. Que es el DOM
 
-Para llegar al DOMy CSSOM ocurre un proceso que se llama **El Camino Crítico de Renderización(Critical Rendering Path)** es la secuencia de pasos que el navegador realiza para convertir el HTML, CSS y JavaScript en píxeles en la pantalla.
+Para llegar al DOM y CSSOM ocurre un proceso que se llama **El Camino Crítico de Renderización(Critical Rendering Path)** es la secuencia de pasos que el navegador realiza para convertir el HTML, CSS y JavaScript en píxeles en la pantalla.
 
 Pasos que hace el motor del navegador:
 
@@ -964,16 +964,43 @@ const atri2 = myDiv.dataset.otroAtributo; //atributo2
 
 ### 24. Comparte el resultado
 
+Compartir el resultado obtenido sobre el workshop Lazy loading
+
 ## Workshop 3
 
 ### 25. Proyectos propuestos
+
+- Reproductor de video
+
+  - Play, pausa, mute, volume
+
+- Aplicación del clima
+
+  - API: openweathermap.org
+
+  - Eventos: submit, imput, click
 
 ## Librerías relacionadas
 
 ### 26. jQuery
 
+JQuery es una librería de JavaScript que nos ayuda a manipular el DOM, sin embargo muchas de sus funcionalidades ya han sido incorporadas a los navegadores modernos. Fue muy útil en su momento, sin embargo ahora ya no es necesario incluirlo en los proyectos, a menos que el proyecto web vaya dirigido a usuarios que usan navegadores desfasados.
+
 ### 27. JSX
+
+Es html dentro de JavaScript. Es usado por React.js y otras librerías.
 
 ## Conclusiones
 
 ### 28. Conclusiones
+
+**Ahora sabes:**
+
+- Reflexionar sobre el impacto de la API de DOM moderna y la relación con otras librerías como jQuery, Hyperscript y JSX.
+- Utilizar la API del DOM para crear patrones avanzados de optimización en carga de imágenes.
+- Explorar cómo funcionan los Eventos en el DOM y utilizarlos para hacer una página interactiva.
+- Aprender nuevos métodos y nuevas APIs para operar en el DOM, sus beneficios y desventajas.
+- Dominar la API del DOM para leer, agregar, modificar y eliminar nodos.
+- Comprender el concepto del DOM, su formación e importancia en la web.
+
+**Fin del curso.** Aprobado
